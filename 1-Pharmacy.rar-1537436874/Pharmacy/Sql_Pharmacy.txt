@@ -1,0 +1,100 @@
+Create database pharmacy;
+use pharmacy;
+
+CREATE TABLE `PurchaseTable` (
+  
+`Id` INT NOT NULL AUTO_INCREMENT,
+ 
+`MedicineName` Varchar(50) NOT NULL,
+ 
+ `DealerName` VARCHAR(100) NOT NULL,
+ 
+ `BatchNumber` Varchar(50) NOT NULL,
+ 
+  `Quantity` Varchar(50) NOT NULL,
+
+ `Salt`VARCHAR(100) NOT NULL,
+  
+`PurchaseDate` datetime,
+`PurchaseRate` double NOT NULL default 0,
+  
+`SellingRate` double NOT NULL default 0,
+  
+`ExpiryDate` date NOT NULL,
+   
+   
+ PRIMARY KEY (`Id`));
+
+
+CREATE TABLE `InventoryTable` (
+  
+`Id` INT NOT NULL AUTO_INCREMENT,
+ 
+`ProductName` Varchar(50) NOT NULL,
+ 
+`BatchNumber` Varchar(50) NOT NULL,
+ 
+`Quantity` Varchar(50) NOT NULL,
+   
+`PurchaseDate` date,
+`Salt`VARCHAR(100) NOT NULL,
+  
+`PurchaseRate` double NOT NULL default 0,
+  
+`SellingRate` double NOT NULL default 0,
+  
+`ExpiryDate` date NOT NULL,
+   
+ PRIMARY KEY (`Id`));
+
+
+
+
+CREATE TABLE `CustomerTable`(
+`Id` INT NOT NULL AUTO_INCREMENT , 
+`CustomerName` Varchar(50) NOT NULL,
+`CustomerContact` Varchar(50) NOT NULL,
+`CustomerAddress`varchar(150) NOT NULL,
+
+primary Key (`Id`));
+
+CREATE TABLE `dealerTable`(
+`Id` INT NOT NULL AUTO_INCREMENT , 
+`DealerName` Varchar(50) NOT NULL,
+`DealerContact` Varchar(50) NOT NULL,
+`DealerAddress`varchar(150) NOT NULL,
+
+primary Key (`Id`));
+
+
+
+CREATE TABLE `SaleTable`(
+`Id` INT NOT NULL AUTO_INCREMENT , 
+`Date` datetime,
+`Customer`varchar(150) NOT NULL,
+`TotalAmount` double NOT NULL default 0,
+  
+
+primary Key (`Id`));
+
+
+CREATE TABLE `SaleItemTable`(
+`InvoId` INT NOT NULL, 
+`ProductName` Varchar(50) NOT NULL,
+`Batch` Varchar(50) NOT NULL,
+`Quantity`double NOT NULL default 0,
+`Amount` double NOT NULL default 0,
+Key (InvoId),
+INDEX par_ind (InvoId),
+  CONSTRAINT fk_branchTable FOREIGN KEY (InvoId)
+  	REFERENCES Saletable (Id)
+		ON DELETE CASCADE
+  		ON UPDATE CASCADE 
+
+);
+
+
+
+SET FOREIGN_KEY_CHECKS = 0;
+truncate tableName;
+SET FOREIGN_KEY_CHECKS = 1;
